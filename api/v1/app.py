@@ -2,7 +2,7 @@
 """
 Flask Application
 """
-from flask import Flask
+from flask import Flask, jsonify, make_response
 import os
 from models import storage
 from api.v1.views import app_views
@@ -24,7 +24,7 @@ def not_found(error):
     """
     404 Error
     """
-    return jsonify({"error": "Not found"}), 404
+    return make_response(jsonify({"error": "Not found"}), 404)
 
 
 if __name__ == "__main__":
