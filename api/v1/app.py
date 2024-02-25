@@ -4,18 +4,28 @@ Flask Application
 """
 
 from flask import Flask, jsonify, make_response
-import os import getenv
+import os
+
+# Import storage from models
 from models import storage
+
+# Import views from api.v1.views
 from api.v1.views import app_views
+
+# Import CORS from falsk_cors
 from flask_cors import CORS
 
-
+# Create Flask app
 app = Flask(__name__)
+
+#Register blueprint
 app.register_blueprint(app_views)
 
-cors = CORS(app, resources={r"/*": {"origins: "0.0.0.0"}})
+# Enable CORS
+cors = CORS(app, resources={r"/*": {"origins": "0.0.0.0"}})
 
 
+#Teardown app context
 @app.teardown_appcontext
 def teardown_db(exception):
     """
