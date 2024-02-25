@@ -1,5 +1,7 @@
 #!/usr/bin/python3
-"""Module for state ojects handling RESTFUL API actions """
+"""
+Module for state ojects handling RESTFUL API actions
+"""
 
 from flask import jsonify, abort, make_response
 
@@ -20,19 +22,20 @@ def get_states():
 @app_views.route('/states/<state_id>', methods=['GET'], strict_slashes=False)
 def get_state(state_id):
     """This method retrieves a State object by id"""
-    state = storage.get(State, state_id)
+    state = storage.all(State).get("State.{}".format(state_id))
     if not state:
         abort(404)
     return jsonify(state.to_dict())
 
 
 @app_views.route('/states/<state_id>', methods=['DELETE'],
-        strict_slashes=False)
+                strict_slashes=False)
 def delete_state(state_id):
     """This method deletes a State object by id"""
-    state = storage.get(State, state_id)
+    state = storage.all(State).get("State.{}".format(state_id))
     if not state:
         abort(404)
+
     state.delete()
     storage.save()
     return jsonify({})
@@ -64,5 +67,6 @@ def update_state(state_id):
         if key in ['id', 'created_at', 'updated_at']:
             continue
         setattr(state, key, value)
+
     state.save()
     return jsonify(state.to_dict())
