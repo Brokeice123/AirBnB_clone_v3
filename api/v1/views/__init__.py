@@ -1,5 +1,5 @@
 #!/usr/bin/python3
-"""views module Init file"""
+"""This module defines the views"""
 from flask import Blueprint
 
 app_views = Blueprint('app_views', __name__, url_prefix='/api/v1')
