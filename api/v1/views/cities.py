@@ -71,9 +71,9 @@ def put_city(city_id):
     if not body_request:
         abort(400, "Not a JSON")
 
-    for key,value in body_request.items():
-        if key not in ['id', 'state_id', 'created_at', 'updated_at']:
-            setattr(city, key, value)
+    for k, v in body_request.items():
+        if k not in ['id', 'state_id', 'created_at', 'updated_at']:
+            setattr(city, k, v)
 
     storage.save()
     return make_response(jsonify(city.to_dict()), 200)
